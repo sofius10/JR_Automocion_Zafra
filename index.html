@@ -151,6 +151,11 @@
     content:"";
     position:absolute;left:0;right:0;bottom:0;height:14px;
     background:repeating-linear-gradient(-45deg,var(--ambar) 0 22px,var(--grafito) 22px 44px);
+    animation:marchStripes 3.4s linear infinite;
+  }
+  @keyframes marchStripes{
+    from{background-position:0 0}
+    to{background-position:62px 0}
   }
   .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:44px;align-items:center}
   @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
@@ -159,6 +164,7 @@
     box-shadow:0 18px 44px rgba(0,0,0,.35);
     border-bottom:8px solid var(--ambar);
     transform:rotate(-1.5deg);
+    animation:fadeIn .8s .16s both;
   }
   .logo-card img{width:100%;display:block;border-radius:6px}
   @media(max-width:860px){.logo-card{max-width:380px;transform:none}}
@@ -169,10 +175,12 @@
     border:1px solid rgba(255,176,32,.5);
     padding:5px 12px;border-radius:4px;
     margin-bottom:22px;letter-spacing:.06em;
+    animation:heroIn .7s both;
   }
-  .hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:800;max-width:16ch}
+  .hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:800;max-width:16ch;animation:heroIn .7s .08s both}
   .hero h1 em{font-style:normal;color:var(--ambar)}
-  .hero p{max-width:52ch;margin:20px 0 34px;color:#cfd4da;font-size:1.08rem}
+  .hero p{max-width:52ch;margin:20px 0 34px;color:#cfd4da;font-size:1.08rem;animation:heroIn .7s .16s both}
+  .hero .btns{animation:heroIn .7s .24s both}
   .btns{display:flex;gap:14px;flex-wrap:wrap}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
@@ -189,8 +197,21 @@
   .hero-datos{
     margin-top:44px;display:flex;gap:34px;flex-wrap:wrap;
     font-family:'IBM Plex Mono',monospace;font-size:.86rem;color:#aeb5be;
+    animation:heroIn .7s .32s both;
   }
   .hero-datos strong{color:var(--blanco);font-weight:500;display:block;font-size:.95rem}
+
+  @keyframes heroIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+  /* ---------- Revelado al hacer scroll ---------- */
+  .reveal{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.is-visible{opacity:1;transform:translateY(0)}
+  .paso.reveal:nth-child(2){transition-delay:.1s}
+  .paso.reveal:nth-child(3){transition-delay:.2s}
 
   /* ---------- Secciones ---------- */
   section{padding:72px 0}
@@ -283,13 +304,20 @@
     background:#25d366;display:grid;place-items:center;
     box-shadow:0 8px 22px rgba(0,0,0,.28);
     transition:transform .15s ease;
+    animation:waPulse 2.6s ease-out infinite;
   }
   .wa-float:hover{transform:scale(1.07)}
   .wa-float svg{width:30px;height:30px;fill:#fff}
+  @keyframes waPulse{
+    0%,65%,100%{box-shadow:0 8px 22px rgba(0,0,0,.28),0 0 0 0 rgba(37,211,102,.55)}
+    35%{box-shadow:0 8px 22px rgba(0,0,0,.28),0 0 0 11px rgba(37,211,102,0)}
+  }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
     .btn,.wa-float{transition:none}
+    .hero::after,.wa-float,.logo-card,.hero .eyebrow,.hero h1,.hero p,.hero .btns,.hero-datos{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
   }
 </style>
 </head>
@@ -346,10 +374,10 @@
 
 <section id="servicios">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <h2>Qué hacemos en el taller</h2>
     </div>
-    <div class="hoja">
+    <div class="hoja reveal">
       <div class="hoja-head">
         <span>JR AUTOMOCIÓN ZAFRA · ORDEN DE TRABAJO</span>
         <span>C/ CAYA 10</span>
@@ -387,22 +415,22 @@
 
 <section class="cita" id="cita">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="kicker">Sin esperas ni llamadas perdidas</span>
       <h2>Pedir cita es así de fácil</h2>
     </div>
     <div class="pasos">
-      <div class="paso">
+      <div class="paso reveal">
         <span class="num">PASO 01</span>
         <h3>Escríbenos</h3>
         <p>Por <a href="https://wa.me/34684756974?text=Hola%2C%20quiero%20pedir%20cita%20en%20el%20taller" target="_blank" rel="noopener">WhatsApp</a> o al correo <a href="mailto:jrautomocionzafra@gmail.com">jrautomocionzafra@gmail.com</a>. Cuéntanos qué coche tienes y qué le pasa.</p>
       </div>
-      <div class="paso">
+      <div class="paso reveal">
         <span class="num">PASO 02</span>
         <h3>Te damos día y hora</h3>
         <p>Te respondemos con la primera cita disponible y, si podemos, una idea del coste de la reparación.</p>
       </div>
-      <div class="paso">
+      <div class="paso reveal">
         <span class="num">PASO 03</span>
         <h3>Trae el coche</h3>
         <p>Nos encontrarás en Calle Caya 10, Zafra. Lo revisamos, te confirmamos el presupuesto y nos ponemos manos a la obra.</p>
@@ -420,12 +448,12 @@
 
 <section id="ubicacion">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="kicker">Ven a conocernos</span>
       <h2>Dónde estamos</h2>
     </div>
     <div class="ubic-grid">
-      <div class="ficha">
+      <div class="ficha reveal">
         <dl>
           <div>
             <dt>Dirección</dt>
@@ -449,7 +477,7 @@
           </div>
         </dl>
       </div>
-      <div class="mapa">
+      <div class="mapa reveal">
         <iframe title="Mapa: Calle Caya 10, Zafra" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle+Caya+10,+Zafra,+Badajoz,+Espa%C3%B1a&output=embed"></iframe>
       </div>
     </div>
@@ -500,6 +528,24 @@
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeMenu();
   });
+})();
+
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  els.forEach(function(el){ io.observe(el); });
 })();
 </script>
 
