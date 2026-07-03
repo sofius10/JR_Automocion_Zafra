@@ -1,0 +1,9 @@
+{
+  "name": "jr-automocion-zafra",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sitio web de JR Automoción Zafra",
+  "scripts": {
+    "dev": "npx serve -l 8080 ."
+  }
+}
