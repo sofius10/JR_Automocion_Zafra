@@ -93,6 +93,16 @@
   img{max-width:100%}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 
+  /* ---------- Saltar al contenido ---------- */
+  .skip-link{
+    position:absolute;left:-9999px;top:0;
+    background:var(--ambar);color:var(--grafito);
+    padding:10px 18px;border-radius:0 0 8px 0;
+    font-weight:600;text-decoration:none;
+    z-index:100;
+  }
+  .skip-link:focus{left:0}
+
   /* ---------- Barra superior ---------- */
   .topbar{
     background:var(--grafito);color:var(--blanco);
@@ -285,6 +295,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
 <header class="topbar">
   <div class="wrap">
     <a class="logo" href="#inicio">JR <span>Automoción</span> Zafra</a>
@@ -303,6 +315,7 @@
   </div>
 </header>
 
+<main id="main">
 <section class="hero" id="inicio">
   <div class="wrap hero-grid">
    <div>
@@ -442,6 +455,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
