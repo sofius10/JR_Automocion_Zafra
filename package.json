@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "description": "Sitio web de JR Automoción Zafra",
   "scripts": {
-    "dev": "npx serve -l 8080 ."
+    "dev": "npx live-server --port=8080 ."
   }
 }
